@@ -1,2 +1,9 @@
-env/
+# Environment variables
+.env
 
+# IDE specific
+.idea/
+
+# Not sure but looks kinda bloated
+.venv/
+__pycache__/
