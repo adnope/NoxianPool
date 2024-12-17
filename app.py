@@ -20,7 +20,7 @@ def register():
         password = request.form['password']
         fullname = request.form['fullname']
 
-        cur = mysql.connection.cursor()
+        cur = mysql.connection.cursor() 
         cur.execute("INSERT INTO users (username, email, password, fullname) VALUES (%s, %s, %s, %s)", (username, email, password, fullname))
         mysql.connection.commit()
         cur.close()

@@ -3,35 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D&H Blog - Login</title>
+    <title>D&H Blog - Register</title>
 </head>
 <body>
     <center>
-        <h1> <a href="/homepage">D&H Blog</a></h1>
-        <h2>Log into your account</h2>
-
+        <h1> <a href="/homepage">CG Pool</a></h1>
+        <h2>Please create your account</h2>
         <form method="POST">
             <label for="username">Username:</label>
             <input type="text" name="username" id="username" required>
+            <br>
+            <br>
+            <label for="fullname">Full Name:</label>
+            <input type="text" name="fullname" id="fullname" required>
             <br>
             <br>
             <label for="password">Password:</label>
             <input type="password" name="password" id="password" required>
             <br>
             <br>
-            <button type="submit">Login</button>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email">
+            <br>
+            <br>
+            <button type="submit">Register</button>
         </form>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <br>
-                <div class="{{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-        {% endwith %}
-
-        <p>You don't have an account? Please <a href="/register">register here</a>.</p>
+        <p>Or if you already have an account, <a href="/login">Log In</a>.</p>
     </center>
 </body>
 </html>
