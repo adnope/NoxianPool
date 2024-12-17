@@ -10,45 +10,52 @@ app.config['MYSQL_DB'] = 'mywebsitedb'
 
 app.secret_key = 'ThrillOfTheHunt'
 
+isLoggedIn = False
+
 mysql = MySQL(app)
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        password = request.form['password']
-        fullname = request.form['fullname']
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         email = request.form['email']
+#         password = request.form['password']
+#         fullname = request.form['fullname']
 
-        cur = mysql.connection.cursor() 
-        cur.execute("INSERT INTO users (username, email, password, fullname) VALUES (%s, %s, %s, %s)", (username, email, password, fullname))
-        mysql.connection.commit()
-        cur.close()
-        return redirect('/login')
-    return render_template('register.html')
+#         cur = mysql.connection.cursor() 
+#         cur.execute("INSERT INTO users (username, email, password, fullname) VALUES (%s, %s, %s, %s)", (username, email, password, fullname))
+#         mysql.connection.commit()
+#         cur.close()
+#         return redirect('/login')
+#     return render_template('player/register.html')
 
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         password = request.form['password']
 
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
-        user = cur.fetchall()
-        cur.close()
+#         cur = mysql.connection.cursor()
+#         cur.execute("SELECT * FROM users WHERE username = %s AND password = %s", (username, password))
+#         user = cur.fetchall()
+#         cur.close()
 
-        if user:
-            session['user_id'] = user[0]
-            flash('Login successful!', 'success')
-            return redirect('/')
-        else:
-            flash('Invalid email or password.', 'danger')
-    return render_template('login.html')
+#         if user:
+#             session['user_id'] = user[0]
+#             flash('Login successful!', 'success')
+#             return redirect('/')
+#         else:
+#             flash('Invalid email or password.', 'danger')
+#     return render_template('common/login.html')
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
-    return render_template('homepage.html')
+    return render_template('player/unlogged_homepage.html')
+
+@app.route('/tournaments', methods=['GET', 'POST'])
+def view_tournaments():
+
+    return render_template('/common/tournaments.html')
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

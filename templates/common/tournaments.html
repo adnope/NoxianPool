@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Noxian Pool - Homepage</title>
+        <link rel="stylesheet" href="/static/homepage.css">
+
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="navigation-bar">
+                <button onclick="goToHomepage()" class="home-button">Noxian Pool</button>
+                <a href="/templates/common/tournaments.html" class="nav-option">Tournaments</a>
+                <a href="#match-history" class="nav-option">Match History</a>
+                <a href="#contact" class="nav-option">Contact</a>
+            </div>
+
+            <div style="width: auto; display: flex; gap: 10px;">
+                <button onclick="goToLogin()" class="auth-button">Login</button>
+                <button onclick="goToRegister()" class="auth-button">Register</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Tournaments Section -->
+            <section id="tournaments">
+                <h2>Tournaments</h2>
+                <p>This section includes information about tournaments.</p>
+            </section>
+        </div>
+
+        <script>
+            function goToLogin() {
+                window.location.href = "/templates/common/login.html";
+            }
+
+            function goToHomepage() {
+                window.location.href = "/templates/player/not_loggedin_homepage.html";
+            }
+
+            function goToRegister() {
+                window.location.href = "/templates/player/register.html";
+            }
+        </script>
+    </body>
+</html>
