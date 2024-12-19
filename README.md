@@ -2,11 +2,15 @@
   Noxian Pool
 </h1>
   A simple websites for players to join pool tournaments
-<br></br>
+  
+  Demo video:
+  
+  https://youtu.be/l4F1dAe8sbs
+  
   Created with:
   
   - Python 3.12 + Flask
-  - Supabase
+  - Supabase (MySQL)
 
   Team members:
 
