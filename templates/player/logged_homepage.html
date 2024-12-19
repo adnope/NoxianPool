@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Noxian Pool - Homepage</title>
+        <link rel="stylesheet" href="/static/homepage.css">
+
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="navigation-bar">
+                <button onclick="goToHomepage()" class="home-button">Noxian Pool</button>
+                <a href="/tournaments" class="nav-option">Tournaments</a>
+                <a href="/match_history" class="nav-option">Match History</a>
+                <a href="/contact" class="nav-option">Contact</a>
+            </div>
+
+            <div style="width: auto; display: flex; gap: 10px;">
+                <button onclick="logOut()" class="auth-button">Logout</button>
+            </div>
+        </div>
+
+        <div class="main-content"><section id="tournaments">
+                <h2>Upcomming tournaments</h2>
+                <p>This section includes information about tournaments.</p>
+            </section>
+    
+            <!-- Match History Section -->
+            <section id="match-history">
+                <h2>Match History</h2>
+                <p>This section contains your previous matches and results.</p>
+            </section>
+    
+            <!-- Profile Section -->
+            <section id="profile">
+                <h2>Profile</h2>
+                <p>Manage your profile details and preferences here.</p>
+            </section>
+    
+            <!-- Contact Section -->
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>Contact us via email: example@email.com</p>
+            </section>
+        </div>
+
+        <script>
+            function logOut() {
+                window.location.href = "/logout";
+            }
+
+            function goToHomepage() {
+                window.location.href = "/homepage";
+            }
+        </script>
+    </body>
+</html>

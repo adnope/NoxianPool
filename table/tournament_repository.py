@@ -1,6 +1,8 @@
 from typing import List, Optional
 from table.base import Tournament
 from supabase import Client
+from datetime import datetime, timezone
+from datetime import timedelta
 
 class TournamentRepository:
     def __init__(self, client: Client):
@@ -24,7 +26,7 @@ class TournamentRepository:
 
     def get_tournament(self, tournament_id: int) -> Optional[Tournament]:
         """Retrieve a tournament by its ID."""
-        data = self.client.table("tournaments").select("*").eq("id", tournament_id).single().execute()
+        data = self.client.table("tournaments").select("*").eq("id", tournament_id).single().execute().data
         if data:
             return Tournament(
                 id=data["id"],
@@ -33,8 +35,8 @@ class TournamentRepository:
                 creator_id=data["creator_id"],
                 created_at=data["created_at"],
                 status=data["status"],
-                start_date=data["start_date"],
-                end_date=data["end_date"],
+                start_date=self.convert_timestamptz_into_str(str(data["start_date"])),
+                end_date=self.convert_timestamptz_into_str(str(data["end_date"])),
                 number_of_players=data["number_of_players"],
                 allowed_ranks=data["allowed_ranks"],
                 play_style=data["play_style"],
@@ -47,7 +49,7 @@ class TournamentRepository:
 
     def list_tournaments(self) -> List[Tournament]:
         """List all tournaments."""
-        data = self.client.table("tournaments").select("*").execute()
+        data = self.client.table("tournaments").select("*").execute().data
         return [
             Tournament(
                 id=item["id"],
@@ -56,11 +58,36 @@ class TournamentRepository:
                 creator_id=item["creator_id"],
                 created_at=item["created_at"],
                 status=item["status"],
-                start_date=item["start_date"],
-                end_date=item["end_date"],
+                start_date=self.convert_timestamptz_into_str(str(item["start_date"])),
+                end_date=self.convert_timestamptz_into_str(str(item["end_date"])),
                 number_of_players=item["number_of_players"],
                 allowed_ranks=item["allowed_ranks"],
                 play_style=item["play_style"],
             )
             for item in data
         ]
+    
+    def list_ongoing_tournaments(self) -> List[Tournament]:
+        """List all tournaments."""
+        data = self.client.table("tournaments").select("*").eq("status", 'ongoing').execute().data
+        return [
+            Tournament(
+                id=item["id"],
+                name=item["name"],
+                description=item["description"],
+                creator_id=item["creator_id"],
+                created_at=item["created_at"],
+                status=item["status"],
+                start_date=self.convert_timestamptz_into_str(str(item["start_date"])),
+                end_date=self.convert_timestamptz_into_str(str(item["end_date"])),
+                number_of_players=item["number_of_players"],
+                allowed_ranks=item["allowed_ranks"],
+                play_style=item["play_style"],
+            )
+            for item in data
+        ]
+
+    def convert_timestamptz_into_str(self, timestamp_str:str) -> str:
+        timestamp = datetime.fromisoformat(timestamp_str)
+        formatted_timestamp = timestamp.strftime("%B %d, %Y %H:%M")
+        return formatted_timestamp

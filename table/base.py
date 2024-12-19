@@ -55,3 +55,9 @@ class Match:
         self.first_player_id = first_player_id
         self.second_player_id = second_player_id
         self.tournament_id = tournament_id
+
+class Enrollment:
+    def __init__(self, player_id, tournament_id):
+        self.player_id = player_id
+        self.tournament_id = tournament_id
+        

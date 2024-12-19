@@ -27,10 +27,23 @@
             <h1 class="header-text">Upcoming tournaments</h1>
 
             <!-- Tournaments Section -->
-            <section id="tournaments">
-                <h2>Tournaments</h2>
-                <p>Tournament Name: {{t_name}}</p>
-            </section>
+            {% for tournament in tournaments %}
+                <section style="font-family: Segoe UI;">
+                    <h2>Tournament: {{ tournament.name }}</h2>
+                    <p>Status: {{ tournament.status }}</p>
+                    <p>Number of players: {{ tournament.number_of_players }}</p>
+                    <p>Start at: {{ tournament.start_date }}</p>
+                    <p>End at: {{ tournament.end_date }}</p>
+                    <p>Allowed ranks: {{ tournament.rank_range }}</p>
+                    <p>Description:</p>
+                    <article>
+                        {{ tournament.description | replace('\n', '<br>') | safe }}
+                    </article>
+                    <button onclick="enroll()" class="join-button">
+                        Join this tournament
+                    </button>
+                </section>
+            {% endfor %}
         </div>
 
         <script>
@@ -44,6 +57,10 @@
 
             function goToRegister() {
                 window.location.href = "/register";
+            }
+
+            function enroll() {
+                window.location.href = "/enroll";
             }
         </script>
     </body>

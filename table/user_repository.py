@@ -17,7 +17,7 @@ class UserRepository:
 
     def get_user(self, user_id: int) -> Optional[User]:
         """Retrieve a user by their ID."""
-        data = self.client.table("users").select("*").eq("id", user_id).single().execute()
+        data = self.client.table("users").select("*").eq("id", user_id).single().execute().data
         return User(
             id=data["id"],
             username=data["username"],
