@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from table.base import Enrollment
 from supabase import Client
 
@@ -23,3 +23,13 @@ class EnrollmentRepository:
 
     def delete_enrollment(self, player_id: int, tournament_id: int):
         self.client.table("tournaments").delete().eq("tournament_id", tournament_id).eq("player_id", player_id).execute()
+
+    def list_enrollments(self) -> List[Enrollment]:
+        data = self.client.table("enrollments").select("*").execute().data
+        return [
+            Enrollment(
+                player_id=item["player_id"],
+                tournament_id=item["tournament_id"]
+            )
+            for item in data
+        ]
