@@ -7,7 +7,7 @@ class EnrollmentRepository:
         self.client = client
 
     def upsert_enrollment(self, enrollment: Enrollment):
-        self.client.table("tournaments").upsert({
+        self.client.table("enrollments").upsert({
             "player_id": enrollment.player_id,
             "tournament_id": enrollment.tournament_id
         }).execute()
@@ -22,4 +22,4 @@ class EnrollmentRepository:
         return None
 
     def delete_enrollment(self, player_id: int, tournament_id: int):
-        self.client.table("tournaments").delete().eq("tournament_id", tournament_id).eq("player_id", player_id).execute()
+        self.client.table("enrollments").delete().eq("tournament_id", tournament_id).eq("player_id", player_id).execute()

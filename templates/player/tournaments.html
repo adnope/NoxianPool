@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Noxian Pool - Tournaments</title>
+        <link rel="stylesheet" href="/static/tournaments.css">
+
+    </head>
+
+    <body>
+        <div class="header">
+            <div class="navigation-bar">
+                <button onclick="goToHomepage()" class="home-button">Noxian Pool</button>
+                <a href="/tournaments" class="nav-option">Tournaments</a>
+                <a href="/contact" class="nav-option">Contact</a>
+            </div>
+
+            <div style="width: auto; display: flex; gap: 10px;">
+                <button onclick="logOut()" class="auth-button">Logout</button>
+            </div>
+        </div>  
+
+        <div class="main-content">
+            <h1 class="header-text">Upcoming tournaments</h1>
+
+            <!-- Tournaments Section -->
+            {% for tournament in tournaments %}
+                <section style="font-family: Segoe UI;">
+                    <h2>Tournament: {{ tournament.name }}</h2>
+                    <p>Status: {{ tournament.status }}</p>
+                    <p>Number of players: {{ tournament.number_of_players }}</p>
+                    <p>Start at: {{ tournament.start_date }}</p>
+                    <p>End at: {{ tournament.end_date }}</p>
+                    <p>Allowed ranks: {{ tournament.rank_range }}</p>
+                    <p>Description:</p>
+                    <article>
+                        {{ tournament.description | replace('\n', '<br>') | safe }}
+                    </article>
+                    <br>
+                    <a href="/enroll?tournament_id={{ tournament.id }}" class="join-button">
+                        Join this tournament
+                    </a>
+                </section>
+            {% endfor %}
+        </div>
+
+        <script>
+            function logOut() {
+                window.location.href = "/logout";
+            }
+            
+            function goToLogin() {
+                window.location.href = "/login";
+            }
+
+            function goToHomepage() {
+                window.location.href = "/";
+            }
+
+            function goToRegister() {
+                window.location.href = "/register";
+            }
+        </script>
+    </body>
+</html>

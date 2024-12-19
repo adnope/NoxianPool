@@ -26,7 +26,7 @@ class PlayerRepository:
         """
         Retrieve a player by their ID.
         """
-        data = self.client.table("players").select("*").eq("id", player_id).single().execute()
+        data = self.client.table("players").select("*").eq("id", player_id).single().execute().data
         return Player(
             id=data["id"],
             first_name=data["first_name"],
@@ -49,7 +49,7 @@ class PlayerRepository:
         """
         Retrieve all players.
         """
-        data = self.client.table("players").select("*").execute()
+        data = self.client.table("players").select("*").execute().data
         return [
             Player(
                 id=item["id"],

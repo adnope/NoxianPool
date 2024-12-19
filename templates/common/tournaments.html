@@ -3,17 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Noxian Pool - Homepage</title>
+        <title>Noxian Pool - Tournaments</title>
         <link rel="stylesheet" href="/static/tournaments.css">
-
     </head>
 
     <body>
         <div class="header">
             <div class="navigation-bar">
                 <button onclick="goToHomepage()" class="home-button">Noxian Pool</button>
-                <a href="/templates/common/tournaments.html" class="nav-option">Tournaments</a>
-                <a href="/match_history" class="nav-option">Match History</a>
+                <a href="/tournaments" class="nav-option">Tournaments</a>
                 <a href="/contact" class="nav-option">Contact</a>
             </div>
 
@@ -39,9 +37,10 @@
                     <article>
                         {{ tournament.description | replace('\n', '<br>') | safe }}
                     </article>
-                    <button onclick="enroll()" class="join-button">
+                    <br>
+                    <a href="/enroll?tournament_id={{tournament.id}}" class="join-button">
                         Join this tournament
-                    </button>
+                    </a>
                 </section>
             {% endfor %}
         </div>
@@ -52,15 +51,11 @@
             }
 
             function goToHomepage() {
-                window.location.href = "/homepage";
+                window.location.href = "/";
             }
 
             function goToRegister() {
                 window.location.href = "/register";
-            }
-
-            function enroll() {
-                window.location.href = "/enroll";
             }
         </script>
     </body>
