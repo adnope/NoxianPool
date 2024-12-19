@@ -40,3 +40,8 @@ Steps:
     python3 app.py
     ```
     When the website is running, open http://127.0.0.1:5000 on your browser to access it.
+
+<h2>
+  Database
+</h2>
+![img](database_image.png)
