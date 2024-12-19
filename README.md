@@ -35,7 +35,6 @@ Steps:
       .\env\Scripts\activate.bat
       pip install -r requirements.txt
       ```
-  - Add env file: Download the .env file from releases and paste it into the website's root folder
   - Run the website:
     ```
     python3 app.py
