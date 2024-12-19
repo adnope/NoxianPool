@@ -3,15 +3,12 @@ from typing import Optional, List
 
 from table.base import User
 
-
 class UserRepository:
     def __init__(self, client: Client):
         self.client = client
 
     def upsert_user(self, user: User):
-        """Insert or update a user in the users table."""
         self.client.table("users").upsert({
-            "id": user.id,
             "username": user.username,
             "password": user.password,
             "role": user.role,
@@ -28,6 +25,11 @@ class UserRepository:
             role=data["role"],
             created_at=data["created_at"]
         ) if data else None
+    
+    def get_user_id_from_username(self, username) -> Optional[User]:
+        data = self.client.table("users").select("*").eq("username", username).single().execute().data
+        print(data)
+        return data['id']
 
     def delete_user(self, user_id: int):
         """Delete a user by their ID."""

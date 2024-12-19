@@ -1,33 +1,48 @@
+from datetime import datetime, timezone
 from flask import Flask, flash, render_template, request, redirect, session
-from flask_mysqldb import MySQL
+from config import get_supabase_client
+from table.base import Player, Rank, User
+from table.player_repository import PlayerRepository
+from table.rank_repository import RankRepository
+from table.user_repository import UserRepository
 
 app = Flask(__name__)
 
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
-app.config['MYSQL_DB'] = 'mywebsitedb'
-
-app.secret_key = 'ThrillOfTheHunt'
-
 isLoggedIn = False
 
-mysql = MySQL(app)
+supabase = get_supabase_client()
 
-# @app.route('/register', methods=['GET', 'POST'])
-# def register():
-#     if request.method == 'POST':
-#         username = request.form['username']
-#         email = request.form['email']
-#         password = request.form['password']
-#         fullname = request.form['fullname']
+player_repo = PlayerRepository(supabase)
+rank_repo = RankRepository(supabase)
+user_repo = UserRepository(supabase)
 
-#         cur = mysql.connection.cursor() 
-#         cur.execute("INSERT INTO users (username, email, password, fullname) VALUES (%s, %s, %s, %s)", (username, email, password, fullname))
-#         mysql.connection.commit()
-#         cur.close()
-#         return redirect('/login')
-#     return render_template('player/register.html')
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        user = User("", username, password, "player", str(datetime.now(timezone.utc)))
+        user_repo.upsert_user(user)
+
+        first_name = request.form['first_name']
+        last_name = request.form['last_name']
+        rank_id = Rank(request.form["rank"]).id
+        year_of_birth = request.form['year_of_birth']
+        citizen_id = request.form['citizen_id']
+        email = request.form['email']
+        phone_number = request.form['phone_number']
+        country = request.form['country']
+
+        user_id = user_repo.get_user_id_from_username(username)
+        print(user_id)
+
+        player = Player(user_id, first_name, last_name, rank_id, year_of_birth, citizen_id, email, phone_number, country)
+        player_repo.upsert_player(player)
+
+        print("registration successfully")
+        return redirect('/login')
+    return render_template('player/register.html')
 
 # @app.route('/login', methods=['GET', 'POST'])
 # def login():
@@ -48,7 +63,7 @@ mysql = MySQL(app)
 #             flash('Invalid email or password.', 'danger')
 #     return render_template('common/login.html')
 
-@app.route('/homepage', methods=['GET'])
+@app.route('/', methods=['GET'])
 def home():
     return render_template('player/unlogged_homepage.html')
 

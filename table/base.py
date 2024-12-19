@@ -1,9 +1,9 @@
 class Rank:
-    def __init__(self, id, rank):
-        self.id = id
+    rank_map = {chr(i + 65): i + 1 for i in range(9)}
+    def __init__(self, rank):
+        self.id = self.rank_map[rank]
         self.rank = rank
-
-
+        
 class Player:
     def __init__(self, id, first_name, last_name, rank_id, year_of_birth, 
                  citizen_identification, email, phone_number, country):
