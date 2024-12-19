@@ -48,14 +48,14 @@ mysql = MySQL(app)
 #             flash('Invalid email or password.', 'danger')
 #     return render_template('common/login.html')
 
-@app.route('/', methods=['GET'])
+@app.route('/homepage', methods=['GET'])
 def home():
     return render_template('player/unlogged_homepage.html')
 
 @app.route('/tournaments', methods=['GET', 'POST'])
 def view_tournaments():
 
-    return render_template('/common/tournaments.html')
+    return render_template('common/tournaments.html', t_name='CG Open')
 
 if __name__ == '__main__':
     app.run(debug=True)

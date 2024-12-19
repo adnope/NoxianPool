@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Noxian Pool - Homepage</title>
-        <link rel="stylesheet" href="/static/homepage.css">
+        <link rel="stylesheet" href="/static/tournaments.css">
 
     </head>
 
@@ -13,8 +13,8 @@
             <div class="navigation-bar">
                 <button onclick="goToHomepage()" class="home-button">Noxian Pool</button>
                 <a href="/templates/common/tournaments.html" class="nav-option">Tournaments</a>
-                <a href="#match-history" class="nav-option">Match History</a>
-                <a href="#contact" class="nav-option">Contact</a>
+                <a href="/match_history" class="nav-option">Match History</a>
+                <a href="/contact" class="nav-option">Contact</a>
             </div>
 
             <div style="width: auto; display: flex; gap: 10px;">
@@ -24,24 +24,26 @@
         </div>
 
         <div class="main-content">
+            <h1 class="header-text">Upcoming tournaments</h1>
+
             <!-- Tournaments Section -->
             <section id="tournaments">
                 <h2>Tournaments</h2>
-                <p>This section includes information about tournaments.</p>
+                <p>Tournament Name: {{t_name}}</p>
             </section>
         </div>
 
         <script>
             function goToLogin() {
-                window.location.href = "/templates/common/login.html";
+                window.location.href = "/login";
             }
 
             function goToHomepage() {
-                window.location.href = "/templates/player/not_loggedin_homepage.html";
+                window.location.href = "/homepage";
             }
 
             function goToRegister() {
-                window.location.href = "/templates/player/register.html";
+                window.location.href = "/register";
             }
         </script>
     </body>
